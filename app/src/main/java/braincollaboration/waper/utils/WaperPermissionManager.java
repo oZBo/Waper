@@ -28,7 +28,7 @@ public class WaperPermissionManager {
                 .setDeniedMessage("If u reject those permissions u cant use app")
                 .setRationaleMessage("To use this app please allow next permissions")
                 .setGotoSettingButtonText("Settings")
-                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS, Manifest.permission.RECORD_AUDIO)
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .setRationaleConfirmText("Confirm")
                 .check();
     }
