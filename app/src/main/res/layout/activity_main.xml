@@ -12,17 +12,11 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
-    <ProgressBar
-        android:id="@+id/google_progress"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_gravity="bottom|end"/>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_gravity="bottom|end"
-        android:src="@color/yellow"/>
+        android:src="@color/colorPrimaryDark"/>
 
 </FrameLayout>
