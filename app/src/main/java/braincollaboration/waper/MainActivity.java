@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +15,8 @@ import android.widget.Toast;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
+
+    //TODO All comments MUST be in English.
 
     private static final String IMAGE_URL = "https://source.unsplash.com/random";
     private ImageView mainContentImageView;
@@ -50,22 +51,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected Bitmap doInBackground(Void... params) {
+            //TODO check what will happen when you minimize app while asyncTask is working
             Bitmap mImage = null;
             try {
                 InputStream in = new java.net.URL(IMAGE_URL).openStream();
                 mImage = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
-                Log.e("Image transfer error", e.getMessage());
+                Log.e("Image transfer error", e.getMessage()); //TODO move LOG_TAG into static final class field
             }
-
-            return mImage;
+            return mImage; //TODO check what will happen when Stream return null. Maybe use some stub picture in this case?
         }
 
         protected void onPostExecute(Bitmap result) {
-            progressBar.setVisibility(ProgressBar.INVISIBLE); //прячем шкалу прогресса
+            //TODO User still can press on this button when it INVISIBLE. Check what will happen when u press button quickly  many times.
+            progressBar.setVisibility(ProgressBar.INVISIBLE); //прячем шкалу прогресса.
 
-            if (result!=null) mainContentImageView.setImageBitmap(result);
-            else Toast.makeText(getApplicationContext(), "Ошибка загрузки изображения", Toast.LENGTH_LONG).show();
+            if (result!=null) mainContentImageView.setImageBitmap(result);//TODO You MUST always use braces in if statements
+            else Toast.makeText(getApplicationContext(), "Ошибка загрузки изображения", Toast.LENGTH_LONG).show(); //TODO move string into res folder.
 
             fab.setVisibility(View.VISIBLE);  // показываем кнопку
 
