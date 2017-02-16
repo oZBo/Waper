@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Waper</string>
+    <string name="image_loading_error">Ошибка загрузки изображения. Попробуейте еще раз!</string>
 </resources>
