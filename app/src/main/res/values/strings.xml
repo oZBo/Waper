@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Waper</string>
-    <string name="image_loading_error">Ошибка загрузки изображения. Попробуейте еще раз!</string>
+    <string name="image_loading_error">Image loading error. Try one more time!</string>
+    <string name="set_as_wallpaper_menu_button">Set as Wallpaper</string>
+    <string name="about_menu_button">About</string>
+    <string name="main_image">main_image</string>
 </resources>

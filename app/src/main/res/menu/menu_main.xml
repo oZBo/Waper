@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/set_as_wallpaper_menu_button"
+        android:orderInCategory="1"
+        android:title="@string/set_as_wallpaper_menu_button"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/about_menu_button"
+        android:orderInCategory="2"
+        android:title="@string/about_menu_button"
+        app:showAsAction="never"/>
+</menu>
