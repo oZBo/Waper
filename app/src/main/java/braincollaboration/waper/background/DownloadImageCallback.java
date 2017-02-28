@@ -23,8 +23,8 @@ public interface DownloadImageCallback {
     /**
      * Signaling when something went wrong.
      * Background work finished. Do something with your Views.
-     * @param errorMessage showing what went wrong
+     * errorMessage showing what went wrong
      */
-    void onDownloadingError(String errorMessage);
+    void onDownloadingError();
 
 }

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import java.io.IOException;
 import java.net.URL;
 
+import braincollaboration.waper.R;
 import braincollaboration.waper.utils.Constants;
 
 /**
@@ -61,7 +62,7 @@ public class DownloadImageTask extends AsyncTask<Void, Void, Bitmap> {
             Thread.sleep(delayTime);
             resultBitmap = BitmapFactory.decodeStream(downloadImageUrl.openConnection().getInputStream());
         } catch (IOException | InterruptedException e) {
-            downloadCallback.onDownloadingError(e.getMessage());
+            //downloadCallback.onDownloadingError(e.getMessage()); operation with GI can't make in background, otherwise app crashes
         }
         return resultBitmap;
     }
@@ -71,7 +72,7 @@ public class DownloadImageTask extends AsyncTask<Void, Void, Bitmap> {
         if(result != null) {
             downloadCallback.onImageDownloaded(result);
         }else{
-            downloadCallback.onDownloadingError("Bitmap is null");
+            downloadCallback.onDownloadingError();
         }
     }
 

@@ -1,7 +1,17 @@
 <resources>
     <string name="app_name">Waper</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">Ok</string>
     <string name="image_loading_error">Ошибка загрузки изображения. Попробуейте еще раз!</string>
     <string name="set_as_wallpaper_menu_button">Установить в качестве Обоев</string>
+    <string name="set_as_wallpaper_question">Установить в качестве Обоев?</string>
+    <string name="image_not_chosen">Изображение не выбрано</string>
+    <string name="wallpaper_set">Обои установлено</string>
+    <string name="notification_title">Уведомление</string>
+    <string name="confirm_title">Подтверждение</string>
+    <string name="internet_connection_text">На данный момент нет подключения к Интернету. Для работы приложения требуется доступ к интеренету.</string>
     <string name="about_menu_button">О приложении</string>
     <string name="main_image">main_image</string>
 </resources>

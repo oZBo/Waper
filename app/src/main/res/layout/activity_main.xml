@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <ImageView
-        android:id="@+id/main_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/main_image" />
+    android:layout_height="match_parent"
+    >
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="15dp"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@android:color/holo_orange_dark" />
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_plus"
+        app:backgroundTint="@android:color/background_light"
+        />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
@@ -28,5 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar" />
+
+    <ImageView
+        android:id="@+id/main_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/main_image"
+        android:cropToPadding="false" />
 
 </FrameLayout>

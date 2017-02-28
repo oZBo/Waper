@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Waper</string>
+    <string name="yes">Так</string>
+    <string name="ok">Ok</string>
+    <string name="no">Нi</string>
+    <string name="cancel">Вiдмiна</string>
+    <string name="image_loading_error">Помилка завантаження зображення. Спробуйте ще раз!</string>
+    <string name="set_as_wallpaper_menu_button">Встановити в якостi фону роб. столу</string>
+    <string name="set_as_wallpaper_question">Встановити в якостi фону роб. столу?</string>
+    <string name="image_not_chosen">Зображення не выбране</string>
+    <string name="wallpaper_set">Фон встановлений</string>
+    <string name="notification_title">Повiдомлення</string>
+    <string name="confirm_title">Пiдтвердження</string>
+    <string name="internet_connection_text">на даний момент немає підключення до Інтернету. Для роботи програми потрібен доступ до інтернету.</string>
+    <string name="about_menu_button">Вiдомостi про додаток</string>
+    <string name="main_image">main_image</string>
+</resources>
