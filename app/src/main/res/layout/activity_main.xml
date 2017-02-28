@@ -7,14 +7,13 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_plus"
-        app:backgroundTint="@android:color/background_light"
+    <ImageView
+        android:id="@+id/main_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/main_image"
+        android:src="@drawable/brick_texture3334"
         />
 
     <ProgressBar
@@ -25,12 +24,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar" />
 
-    <ImageView
-        android:id="@+id/main_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/main_image"
-        android:cropToPadding="false" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_plus"
+        app:backgroundTint="@android:color/background_light"
+        />
 
 </FrameLayout>

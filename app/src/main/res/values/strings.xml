@@ -8,7 +8,7 @@
     <string name="set_as_wallpaper_menu_button">Set as Wallpaper</string>
     <string name="set_as_wallpaper_question">Set as Wallpaper?</string>
     <string name="image_not_chosen">Image not chosen</string>
-    <string name="wallpaper_set">Wallpaper set</string>
+    <string name="wallpaper_set">Wallpaper is now installed</string>
     <string name="notification_title">Notificationn</string>
     <string name="confirm_title">Confirm</string>
     <string name="internet_connection_text">There is currently no connection to the Internet. This application requires internet access.</string>

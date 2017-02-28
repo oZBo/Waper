@@ -63,9 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.set_as_wallpaper_menu_button:
-                ImageView imageView = mainContentImageView;
-                imageView.buildDrawingCache();
-                Bitmap bitmap = imageView.getDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable)mainContentImageView.getDrawable()).getBitmap();
                 if (bitmap != null) {
                     mainBitmap = bitmap;
                     showDialog(Constants.DIALOG_SET_WALLPAPER_QUESTION);
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setTitle(R.string.notification_title);
         adb.setMessage(R.string.internet_connection_text);
-        adb.setIcon(android.R.drawable.ic_dialog_info);
+        adb.setIcon(R.drawable.ic_wan);
         adb.setNeutralButton(R.string.ok, myClickListener);
         return adb.create();
     } else if (id == Constants.DIALOG_SET_WALLPAPER_QUESTION) { //Set wallpaper dialog confirm
@@ -103,14 +101,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DialogInterface.OnClickListener myClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
-                // положительная кнопка
                 case Dialog.BUTTON_POSITIVE:
                     setAsWallpaper();
                     break;
-                // негативная кнопка
                 case Dialog.BUTTON_NEGATIVE:
                     break;
-                // нейтральная кнопка
                 case Dialog.BUTTON_NEUTRAL:
                     break;
             }
@@ -154,9 +149,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onImageDownloaded(Bitmap bitmapResult) {
+                mainContentImageView.setImageBitmap(bitmapResult);
                 imageLoadingProgress.setVisibility(View.GONE);
                 floatingActionButton.setVisibility(View.VISIBLE);
-                mainContentImageView.setImageBitmap(bitmapResult);
             }
 
             @Override

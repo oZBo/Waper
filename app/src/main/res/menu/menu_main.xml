@@ -8,7 +8,7 @@
         android:orderInCategory="1"
         android:title="@string/set_as_wallpaper_menu_button"
         android:icon="@drawable/ic_image"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/about_menu_button"
