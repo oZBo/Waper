@@ -1,17 +1,11 @@
 package braincollaboration.waper;
 
-import android.app.Dialog;
-import android.app.WallpaperManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.io.IOException;
 
 import braincollaboration.waper.background.DownloadImageCallback;
 import braincollaboration.waper.background.DownloadImageTask;
@@ -31,8 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mainContentImageView;
     private FloatingActionButton floatingActionButton;
     private ProgressBar imageLoadingProgress;
-    private Bitmap mainBitmap;
-    private DownloadImageTask downloadImageTask;
+    private braincollaboration.waper.utils.Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +33,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         configureWidgets();
         restoreViewsInstanceState(savedInstanceState);
-        if (!isOnline()) {
-            showDialog(Constants.DIALOG_INTERNET_NOT_AVIABLE);
-        }
     }
 
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!Constants.isInternetOn((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
+            dialog = new braincollaboration.waper.utils.Dialog(getApplicationContext());
+            dialog.showDialog(Constants.DIALOG_INTERNET_NOT_AVIABLE);
+        }
     }
 
     @Override
@@ -65,8 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.set_as_wallpaper_menu_button:
                 Bitmap bitmap = ((BitmapDrawable)mainContentImageView.getDrawable()).getBitmap();
                 if (bitmap != null) {
-                    mainBitmap = bitmap;
-                    showDialog(Constants.DIALOG_SET_WALLPAPER_QUESTION);
+                    dialog = new braincollaboration.waper.utils.Dialog(getApplicationContext(), bitmap);
+
+                    //mainBitmap = bitmap;
+                    dialog.showDialog(Constants.DIALOG_SET_WALLPAPER_QUESTION);
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.image_not_chosen, Toast.LENGTH_SHORT).show();
                 }
@@ -78,49 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected Dialog onCreateDialog (int id) {
-        if (id == Constants.DIALOG_INTERNET_NOT_AVIABLE) { //internet check dialog
-        AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        adb.setTitle(R.string.notification_title);
-        adb.setMessage(R.string.internet_connection_text);
-        adb.setIcon(R.drawable.ic_wan);
-        adb.setNeutralButton(R.string.ok, myClickListener);
-        return adb.create();
-    } else if (id == Constants.DIALOG_SET_WALLPAPER_QUESTION) { //Set wallpaper dialog confirm
-            AlertDialog.Builder adb = new AlertDialog.Builder(this);
-            adb.setTitle(R.string.confirm_title);
-            adb.setMessage(R.string.set_as_wallpaper_question);
-            adb.setIcon(R.drawable.ic_question_answer_white_48dp);
-            adb.setPositiveButton(R.string.yes, myClickListener);
-            adb.setNegativeButton(R.string.cancel, myClickListener);
-            return adb.create();
-        }
-        return super.onCreateDialog(id);
-    }
 
-    DialogInterface.OnClickListener myClickListener = new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which) {
-                case Dialog.BUTTON_POSITIVE:
-                    setAsWallpaper();
-                    break;
-                case Dialog.BUTTON_NEGATIVE:
-                    break;
-                case Dialog.BUTTON_NEUTRAL:
-                    break;
-            }
-        }
-    };
-
-    private void setAsWallpaper() {
-        try {
-            WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-            wallpaperManager.setBitmap(mainBitmap);
-            Toast.makeText(getApplicationContext(), R.string.wallpaper_set, Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void configureWidgets() {
         mainContentImageView = (ImageView) findViewById(R.id.main_image);
@@ -140,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initDownloadImageTask() {
-        downloadImageTask = new DownloadImageTask(new DownloadImageCallback() {
+        DownloadImageTask downloadImageTask = new DownloadImageTask(new DownloadImageCallback() {
             @Override
             public void onDownloadingStart() {
                 imageLoadingProgress.setVisibility(View.VISIBLE);
@@ -172,12 +124,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // restores ImageView
                 mainContentImageView.setImageBitmap(bitmap);
             }
-            if (savedInstanceState.containsKey(Constants.KEY_ASYNCTASK_RUN_STATE)) {
-                if (savedInstanceState.getBoolean(Constants.KEY_ASYNCTASK_RUN_STATE)) {
-                    imageLoadingProgress.setVisibility(View.VISIBLE);
-                    floatingActionButton.setVisibility(View.GONE);
-                }
-            }
         }
     }
 
@@ -188,9 +134,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (drawable != null) { //saves mainContentImageView if it's not consist in null or only link on empty xml object
             Bitmap bitmap = drawable.getBitmap();
             outState.putParcelable(Constants.KEY_ONSAVE_ROTATED_IMAGE, bitmap);
-        }
-        if (downloadImageTask != null) {
-            outState.putBoolean(Constants.KEY_ASYNCTASK_RUN_STATE, downloadImageTask.isAsyncTaskRunning());
         }
     }
 }
