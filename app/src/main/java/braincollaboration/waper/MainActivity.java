@@ -1,9 +1,9 @@
 package braincollaboration.waper;
 
-import android.content.Context;
+import android.app.WallpaperManager;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,23 +14,25 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.IOException;
 
 import braincollaboration.waper.background.DownloadImageCallback;
 import braincollaboration.waper.background.DownloadImageTask;
 import braincollaboration.waper.utils.Constants;
+import braincollaboration.waper.utils.InternetUtil;
+import braincollaboration.waper.views.dialog.CheckInternetAccessDialog;
+import braincollaboration.waper.views.dialog.SetAsWallpaperDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mainContentImageView;
     private FloatingActionButton floatingActionButton;
     private ProgressBar imageLoadingProgress;
-    private braincollaboration.waper.utils.Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         configureWidgets();
         restoreViewsInstanceState(savedInstanceState);
     }
@@ -39,9 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        if (!Constants.isInternetOn((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
-            dialog = new braincollaboration.waper.utils.Dialog(getApplicationContext());
-            dialog.showDialog(Constants.DIALOG_INTERNET_NOT_AVIABLE);
+        if (!InternetUtil.isInternetAvailable(WaperApp.getCurrentActivity())) {
+            showInternetNotAvailableDialog();
         }
     }
 
@@ -55,12 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.set_as_wallpaper_menu_button:
-                Bitmap bitmap = ((BitmapDrawable)mainContentImageView.getDrawable()).getBitmap();
+                Bitmap bitmap = ((BitmapDrawable) mainContentImageView.getDrawable()).getBitmap();
                 if (bitmap != null) {
-                    dialog = new braincollaboration.waper.utils.Dialog(getApplicationContext(), bitmap);
-
-                    //mainBitmap = bitmap;
-                    dialog.showDialog(Constants.DIALOG_SET_WALLPAPER_QUESTION);
+                    showWallpaperDialog();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.image_not_chosen, Toast.LENGTH_SHORT).show();
                 }
@@ -72,14 +70,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void showWallpaperDialog() {
+        final SetAsWallpaperDialog dialog = new SetAsWallpaperDialog(MainActivity.this, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                setAsWallpaper();
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
+            }
+        });
+        dialog.showDialog();
+    }
+
+    private void showInternetNotAvailableDialog() {
+        CheckInternetAccessDialog dialog = new CheckInternetAccessDialog(MainActivity.this, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        dialog.showDialog();
+    }
+
+    private void setAsWallpaper() {
+        try {
+            Bitmap bitmap = ((BitmapDrawable) mainContentImageView.getDrawable()).getBitmap();
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(WaperApp.getCurrentActivity());
+            wallpaperManager.setBitmap(bitmap);
+            Toast.makeText(WaperApp.getCurrentActivity(), R.string.wallpaper_set, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(WaperApp.getCurrentActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void configureWidgets() {
         mainContentImageView = (ImageView) findViewById(R.id.main_image);
         imageLoadingProgress = (ProgressBar) findViewById(R.id.progressBar);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(this);
-
     }
 
     @Override

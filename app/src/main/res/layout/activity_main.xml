@@ -12,9 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:contentDescription="@string/main_image"
-        android:src="@drawable/brick_texture3334"
-        />
+        android:contentDescription="@string/main_image"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
