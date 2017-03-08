@@ -23,7 +23,7 @@ public abstract class CustomDialogBase {
     }
 
     public CustomDialogBase(Context context, DialogInterface.OnClickListener confirmClickListener){
-        this(context, confirmClickListener, null);
+        this(context, confirmClickListener, null); // Why this method ain't starts with initDialog as 30th line? What's the difference?
     }
 
     public CustomDialogBase(Context context, DialogInterface.OnClickListener confirmClickListener, DialogInterface.OnClickListener cancelClickListener){
@@ -34,7 +34,7 @@ public abstract class CustomDialogBase {
         dialogBuilder = new AlertDialog.Builder(context);
         dialogBuilder.setTitle(context.getString(getTitle()));
         dialogBuilder.setMessage(context.getString(getMessage()));
-        dialogBuilder.setIcon(getIconResId());
+        dialogBuilder.setIcon(getIconResId()); //Why this (and at 38th, 42ht lines) argument ain't start with context use as it made at 35th, 36th lines?
         if(confirmListener != null){
             dialogBuilder.setPositiveButton(getConfirmMessage(), confirmListener);
         }

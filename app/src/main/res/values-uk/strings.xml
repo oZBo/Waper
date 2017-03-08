@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Waper</string>
     <string name="yes">Так</string>
-    <string name="ok">Ok</string>
+    <string name="ok">Oк</string>
     <string name="no">Нi</string>
     <string name="cancel">Вiдмiна</string>
     <string name="image_loading_error">Помилка завантаження зображення. Спробуйте ще раз!</string>
@@ -12,6 +12,7 @@
     <string name="notification_title">Повiдомлення</string>
     <string name="confirm_title">Пiдтвердження</string>
     <string name="internet_connection_text">на даний момент немає підключення до Інтернету. Для роботи програми потрібен доступ до інтернету.</string>
+    <string name="time_delay_is_over_the_limit">Перевищення часу очiкування</string>
     <string name="about_menu_button">Вiдомостi про додаток</string>
     <string name="main_image">main_image</string>
 </resources>

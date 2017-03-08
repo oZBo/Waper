@@ -12,6 +12,7 @@
     <string name="notification_title">Notificationn</string>
     <string name="confirm_title">Confirm</string>
     <string name="internet_connection_text">There is currently no connection to the Internet. This application requires internet access.</string>
+    <string name="time_delay_is_over_the_limit">Time delay is over the limit</string>
     <string name="about_menu_button">About</string>
     <string name="main_image">main_image</string>
 </resources>

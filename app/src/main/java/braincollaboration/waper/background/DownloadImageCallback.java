@@ -10,6 +10,7 @@ public interface DownloadImageCallback {
 
     /**
      * Signaling when image download started.
+     * And starts another asyncTask to be convict that main asyncTask not out of time limit
      * Here you can do whatever you want with your Views.
      */
     void onDownloadingStart();
@@ -19,6 +20,11 @@ public interface DownloadImageCallback {
      * Background work finished. Do something with your Views.
      */
     void onImageDownloaded(Bitmap bitmapResult);
+
+    /**
+     * Saves downloaded bitmap on sd card
+     */
+    void onImageSaved(Bitmap bitmapResult);
 
     /**
      * Signaling when something went wrong.

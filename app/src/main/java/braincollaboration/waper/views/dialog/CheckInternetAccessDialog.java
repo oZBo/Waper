@@ -18,12 +18,10 @@ public class CheckInternetAccessDialog extends CustomDialogBase {
     }
 
     @Override
-    protected int getConfirmMessage() {
-        return R.string.yes;
-    }
+    protected int getConfirmMessage() { return R.string.ok; }
 
     @Override
-    protected int getCancelMessage() {
+    protected int getCancelMessage() { //Is it necessary to deprecate not usable super variable?
         return -1;
     }
 

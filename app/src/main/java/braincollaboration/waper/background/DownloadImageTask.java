@@ -61,15 +61,14 @@ public class DownloadImageTask extends AsyncTask<Void, Void, Bitmap> {
             URL downloadImageUrl = new URL(downloadingUrl);
             Thread.sleep(delayTime);
             resultBitmap = BitmapFactory.decodeStream(downloadImageUrl.openConnection().getInputStream());
-        } catch (IOException | InterruptedException e) {
-            //downloadCallback.onDownloadingError(e.getMessage()); operation with GI can't make in background, otherwise app crashes
-        }
+        } catch (IOException | InterruptedException e) { }
         return resultBitmap;
     }
 
     @Override
     protected void onPostExecute(Bitmap result) {
         if(result != null) {
+            downloadCallback.onImageSaved(result);
             downloadCallback.onImageDownloaded(result);
         }else{
             downloadCallback.onDownloadingError();
