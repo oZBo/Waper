@@ -2,6 +2,7 @@ package braincollaboration.waper;
 
 import android.app.WallpaperManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 return true;
             case R.id.about_menu_button:
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
