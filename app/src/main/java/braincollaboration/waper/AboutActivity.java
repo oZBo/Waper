@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.vansuita.materialabout.builder.AboutBuilder;
-import com.vansuita.materialabout.views.AutoFitGridLayout.LayoutParams;
 
 /**
  * Created by braincollaboration on 09/03/2017.
@@ -17,7 +16,6 @@ public class AboutActivity extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutParams linLayoutParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         View view = AboutBuilder.with(this)
                 .setPhoto(R.mipmap.profile_picture)
                 .setCover(R.mipmap.profile_cover)
@@ -35,7 +33,6 @@ public class AboutActivity extends Activity{
                 .setWrapScrollView(true)
                 .setLinksAnimated(true)
                 .build();
-
-        addContentView(view, linLayoutParam);
+        setContentView(view);
     }
 }
